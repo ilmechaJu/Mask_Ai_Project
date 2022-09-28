@@ -10,5 +10,6 @@ VALIDATION_DIR = "C:/Users/I310/PycharmProjects/pythonProject/mask_dataset/test-
 should chnakge "C:/Users/I310/PycharmProjects/pythonProject/mask_dataset/test-set" -> "your own"
 
 
-*ther are no dataset file in this github because of the quantity of the picture they're over 1GB."
-SO you have to do crolling some 'human Face image' from web.
+*ther are no dataset file in this github because of the capacity of the picture they're over 1GB."
+SO you have to do crolling some 'human Face image' from web and put them into folder which is called "train-set" and "test-set"
+while keep in mind that "train-set" has more picture then 'test-set'
