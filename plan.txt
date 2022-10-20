@@ -1,0 +1,64 @@
+API : get, post, put, delete
+
+
+상단에 `uvicorn task_api:app --reload` 를 실행할 스크립트 -> main.py
+--> docker를 실행할 때, docker-compose, git-action -> 최종적으로 main.py 를 실행!
+
+
+layout Architecture 
+ - first layer : route <- logic 구현, 분기점 제공 
+ - second temp layer <- logic 이 복잡해지면 추가할 예정
+ - second layer : schema <- db를 관리하는 인터페이스
+ - thrid layer : database <- 데이터 저장소
+
+route 설계
+- input : 이미지
+- output : bounding box(x, y, w, h), classification_mask_on/off (bool)
+- method
+-- CRUD API : post 
+-- 비동기 프로그래밍
+
+---- POST : start_detection(client_id : str, image : jpg, image_info: dict)
+    ---> initial signal with input
+    <--- ok... 이제 시작할게
+    return (process_id : str)
+
+---- GET : get_detection_process(process_id : str)
+    ---> 지금 프로세스 상황 얘기해줘
+    <--- 33 % 진행중
+    return (process_status : int)
+
+---- GET : get_detection_result(process_id : str)
+    ---> 프로세스 결과 줘
+    <--- 프로세스가 100%인 경우에만 output 전송
+    return (output : detection_result : dict)
+
+--- schema 설계 : web interface
+image_info :
+{
+    "image_size_with" : int
+    "image_size_height" : int    
+}
+
+detection_result :
+{
+    "bounding_box_info" : bounding_box_info
+    "classification_mask_onoff" : bool
+}
+
+bounding_box_info :
+{
+    "x" : int
+    "y" : int
+    "width" : int
+    "height" : int
+}
+
+--- schema 설계 : db interface
+---- web 인터페이스와 비슷
+---- 더 자세한 필드를 추가한다
+---- db communication module
+
+--- db 설계
+---- create table with column
+---- join 등등 테이블 종속서 엮기
