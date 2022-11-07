@@ -32,14 +32,49 @@ from app.models import SnsType, Token, UserToken
 router = APIRouter()
 
 
+# route 설계
+# - input : 이미지
+# - output : bounding box(x, y, w, h), classification_mask_on/off (bool)
+# - method
+# -- CRUD API : post
+# -- 비동기 프로그래밍
+
+# like this---
+@router.post("/input/", status_code=200)
+async def input(input_type: InputType, reg_info: ...):
+    if input == InputType.image:
+        is_exist = await is_image_exist(reg_info.image)
+        if not reg_info.image:
+            return JSONResponse(status_code=400, content=dict(msg="Image must be provided'"))
+        if is_exist:
+            return JSONResponse(status_code=400, content=dict(msg="Image_EXISTS"))
+
+async def is_image_exist(image: jpg):
+    get_image = Users.get(image=image) ##Users가 맞을까? (  )
+    if get_image:
+        return True
+    return False
+
+@router.post("/output/", status_code=200)
+async def input(input_type: InputType, reg_info: ...):
+    if input == InputType.image:
+        is_exist = await is_image_exist(reg_info.image)
+        if not reg_info.image:
+            return JSONResponse(status_code=400, content=dict(msg="Image must be provided'"))
+        if is_exist:
+            return JSONResponse(status_code=400, content=dict(msg="Image_EXISTS"))
+
+
+
+"""
 @router.post("/register/{sns_type}", status_code=200, response_model=Token)
 async def register(sns_type: SnsType, reg_info: UserRegister, session: Session = Depends(db.session)):
     """
-    회원가입 API
-    :param sns_type:
-    :param reg_info:
-    :param session:
-    :return:
+    # 회원가입 API
+    # :param sns_type:
+    # :param reg_info:
+    # :param session:
+    # :return:
     """
     if sns_type == SnsType.email:
         is_exist = await is_email_exist(reg_info.email)
@@ -84,3 +119,4 @@ def create_access_token(*, data: dict = None, expires_delta: int = None):
         to_encode.update({"exp": datetime.utcnow() + timedelta(hours=expires_delta)})
     encoded_jwt = jwt.encode(to_encode, JWT_SECRET, algorithm=JWT_ALGORITHM)
     return encoded_jwt
+"""
