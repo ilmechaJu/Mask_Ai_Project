@@ -11,8 +11,7 @@ from starlette.responses import JSONResponse
 from app.common.consts import JWT_SECRET, JWT_ALGORITHM
 from app.database.conn import db
 from app.database.schema import Users
-from app.models import SnsType, Token, UserToken
-
+from common.models import ImageInfo, DetectionResult
 """
 1. 구글 로그인을 위한 구글 앱 준비 (구글 개발자 도구)
 2. FB 로그인을 위한 FB 앱 준비 (FB 개발자 도구)
@@ -40,6 +39,12 @@ router = APIRouter()
 # -- 비동기 프로그래밍
 
 # like this---
+
+@router.post("/mask_tool/detect/get_result", status_code=200)
+async def get_detection_result(client_id : str, image : bytes, image_info: ImageInfo):
+    bounding_box_info, classification_mask_onoff = process(image)
+    return DetectionResult(bounding_box_info, classification_mask_onoff)
+
 @router.post("/input/", status_code=200)
 async def input(input_type: InputType, reg_info: ...):
     if input == InputType.image:

@@ -1,16 +1,13 @@
 from enum import Enum
 
-from pydantic.main import BaseModel
-from pydantic.networks import EmailStr
-
-
 from pydantic import BaseModel
 
-class image_info(BaseModel):
+class ImageInfo(BaseModel):
     image_size_with: int
     image_size_height: int
 
-class detection_result :
+
+class DetectionResult :
     bounding_box_info : bounding_box_info
     classification_mask_onoff : bool
 
