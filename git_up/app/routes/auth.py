@@ -61,15 +61,16 @@ async def is_image_exist(image: jpg):
     return False
 
 @router.post("/output/", status_code=200)
-async def input(input_type: InputType, reg_info: ...):
-    if input == InputType.image:
+async def input(input_type: OutputType, reg_info: ...):
+    if input == OutputType.image:
         is_exist = await is_image_exist(reg_info.image)
         if not reg_info.image:
             return JSONResponse(status_code=400, content=dict(msg="Image must be provided'"))
         if is_exist:
             return JSONResponse(status_code=400, content=dict(msg="Image_EXISTS"))
 
-
+def process(image):
+    return 
 
 """
 @router.post("/register/{sns_type}", status_code=200, response_model=Token)
