@@ -2,10 +2,12 @@ from dataclasses import asdict
 from typing import Optional
 
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File 
+import shutil
 from app.database.conn import db
 from app.common.config import conf
 from app.routes import index, auth
+
 
 
 def create_app():
@@ -33,3 +35,18 @@ app = create_app()
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8080, reload=True)
+
+@app.post("/")
+async def root(file: UploadFile = File(...)):
+    with open(f'{file.filename}', "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+    return {"file_name": file.filename}
+
+@app.post("/img")
+async def upload_image(files: List[UploadFile] = File(...)):
+    for img in files:
+        with open(f'{img.filename}', "wb") as buffer:
+            shutil.copyfileobj(img.file, buffer)
+    
+    return {"file_name": "good"}
+
