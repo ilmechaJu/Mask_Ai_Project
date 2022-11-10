@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from app.database.conn import db
 from app.common.config import conf
 from app.routes import index, auth
-
+aa
 
 def create_app():
     """
