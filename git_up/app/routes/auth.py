@@ -55,7 +55,7 @@ async def input(input_type: InputType, reg_info: ...):
             return JSONResponse(status_code=400, content=dict(msg="Image_EXISTS"))
 
 async def is_image_exist(image: jpg):
-    get_image = Users.get(image=image) ##Users가 맞을까? (  )
+    get_image = Users.get(image=image) 
     if get_image:
         return True
     return False
@@ -75,13 +75,13 @@ def process(image):
 """
 @router.post("/register/{sns_type}", status_code=200, response_model=Token)
 async def register(sns_type: SnsType, reg_info: UserRegister, session: Session = Depends(db.session)):
-    """
+
     # 회원가입 API
     # :param sns_type:
     # :param reg_info:
     # :param session:
     # :return:
-    """
+    
     if sns_type == SnsType.email:
         is_exist = await is_email_exist(reg_info.email)
         if not reg_info.email or not reg_info.pw:
