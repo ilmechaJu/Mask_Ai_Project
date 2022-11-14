@@ -29,10 +29,3 @@ app = create_app()
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8080, reload=True)
-
-
-@app.post("/img")
-async def root(file: UploadFile = File(...)):
-    with open(f"{file.filename}", "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
-    return {"file_name": file.filename}
