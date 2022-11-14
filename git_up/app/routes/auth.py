@@ -12,6 +12,7 @@ from app.common.consts import JWT_SECRET, JWT_ALGORITHM
 from app.database.conn import db
 from app.database.schema import Users
 from common.models import ImageInfo, DetectionResult
+
 """
 1. 구글 로그인을 위한 구글 앱 준비 (구글 개발자 도구)
 2. FB 로그인을 위한 FB 앱 준비 (FB 개발자 도구)
