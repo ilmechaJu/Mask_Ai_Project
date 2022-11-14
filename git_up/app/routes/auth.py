@@ -11,7 +11,7 @@ from starlette.responses import JSONResponse
 from app.common.consts import JWT_SECRET, JWT_ALGORITHM
 from app.database.conn import db
 from app.database.schema import Users
-from app.models import SnsType, Token, UserToken
+from models import SnsType, Token, UserToken
 
 """
 1. 구글 로그인을 위한 구글 앱 준비 (구글 개발자 도구)

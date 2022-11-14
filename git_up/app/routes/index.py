@@ -7,7 +7,7 @@ router = APIRouter()
 
 
 @router.get("/")
-async def index(session: Session = Depends(db.session),):
+async def index():
     """
     ELB 상태 체크용 API
     :return:
