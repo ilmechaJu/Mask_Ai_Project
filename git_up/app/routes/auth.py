@@ -11,7 +11,7 @@ from starlette.responses import JSONResponse
 from app.common.consts import JWT_SECRET, JWT_ALGORITHM
 from app.database.conn import db
 from app.database.schema import Users
-from models import SnsType, Token, UserToken
+from common.models import ImageInfo, DetectionResult
 
 """
 1. 구글 로그인을 위한 구글 앱 준비 (구글 개발자 도구)
@@ -32,15 +32,57 @@ from models import SnsType, Token, UserToken
 router = APIRouter()
 
 
+# route 설계
+# - input : 이미지
+# - output : bounding box(x, y, w, h), classification_mask_on/off (bool)
+# - method
+# -- CRUD API : post
+# -- 비동기 프로그래밍
+
+# like this---
+
+@router.post("/mask_tool/detect/get_result", status_code=200)
+async def get_detection_result(client_id : str, image : bytes, image_info: ImageInfo):
+    bounding_box_info, classification_mask_onoff = process(image)
+    return DetectionResult(bounding_box_info, classification_mask_onoff)
+
+@router.post("/input/", status_code=200)
+async def input(input_type: InputType, reg_info: ...):
+    if input == InputType.image:
+        is_exist = await is_image_exist(reg_info.image)
+        if not reg_info.image:
+            return JSONResponse(status_code=400, content=dict(msg="Image must be provided'"))
+        if is_exist:
+            return JSONResponse(status_code=400, content=dict(msg="Image_EXISTS"))
+
+async def is_image_exist(image: jpg):
+    get_image = Users.get(image=image) 
+    if get_image:
+        return True
+    return False
+
+@router.post("/output/", status_code=200)
+async def input(input_type: OutputType, reg_info: ...):
+    if input == OutputType.image:
+        is_exist = await is_image_exist(reg_info.image)
+        if not reg_info.image:
+            return JSONResponse(status_code=400, content=dict(msg="Image must be provided'"))
+        if is_exist:
+            return JSONResponse(status_code=400, content=dict(msg="Image_EXISTS"))
+
+def process(image):
+    return 
+
+"""
 @router.post("/register/{sns_type}", status_code=200, response_model=Token)
 async def register(sns_type: SnsType, reg_info: UserRegister, session: Session = Depends(db.session)):
-    """
-    회원가입 API
-    :param sns_type:
-    :param reg_info:
-    :param session:
-    :return:
-    """
+
+    # 회원가입 API
+    # :param sns_type:
+    # :param reg_info:
+    # :param session:
+    # :return:
+    
     if sns_type == SnsType.email:
         is_exist = await is_email_exist(reg_info.email)
         if not reg_info.email or not reg_info.pw:
@@ -84,3 +126,4 @@ def create_access_token(*, data: dict = None, expires_delta: int = None):
         to_encode.update({"exp": datetime.utcnow() + timedelta(hours=expires_delta)})
     encoded_jwt = jwt.encode(to_encode, JWT_SECRET, algorithm=JWT_ALGORITHM)
     return encoded_jwt
+"""
