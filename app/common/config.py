@@ -12,7 +12,7 @@ class Config:
     BASE_DIR = base_dir
 
     DB_POOL_RECYCLE: int = 900
-    DB_ECHO: bool = True
+    DB_ECHO: bool = False
 
 
 @dataclass
