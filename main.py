@@ -3,10 +3,10 @@ from fastapi import FastAPI, UploadFile, File
 import shutil
 import index
 
+from app.routes import pipeline
 
 from app.database.conn import db
 from app.common.config import conf
-from app.routes import pipeline
 from dataclasses import asdict
 
 

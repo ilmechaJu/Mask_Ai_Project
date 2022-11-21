@@ -17,7 +17,7 @@ async def index(session: Session = Depends(db.session),):
     :return:
     """
     
-    Users().create(Session, auto_commit=True, name= "코알라")
+    Users().create(session, auto_commit=True, name= "코알라")
     current_time = datetime.utcnow()
     return Response(
         f"Notification API (UTC: {current_time.strftime('%Y.%m.%d %H:%M:%S')})"
