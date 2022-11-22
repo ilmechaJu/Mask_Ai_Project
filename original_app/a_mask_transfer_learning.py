@@ -4,6 +4,7 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 
+import os
 
 # Random Noise Function
 def add_random_noise(x):
@@ -23,8 +24,12 @@ def add_random_noise(x):
 # ------------/on_mask
 # ------------/off_mask
 
-TRAINING_DIR = "C:/Users/I310/PycharmProjects/pythonProject/mask_dataset/train-set"
-VALIDATION_DIR = "C:/Users/I310/PycharmProjects/pythonProject/mask_dataset/test-set"
+
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+os.path.join(BASE_DIR, 'mask_dataset/train-set')
+TRAINING_DIR = os.path.join(BASE_DIR, 'mask_dataset/train-set')
+VALIDATION_DIR = os.path.join(BASE_DIR, 'mask_dataset/test-set')
 
 batch_size = 8
 
