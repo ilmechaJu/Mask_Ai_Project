@@ -3,13 +3,14 @@ from sqlalchemy.orm import Session
 from starlette.responses import Response
 
 from app.database.conn import db
-from app.database.schema import Users
+# from app.database.schema import Users
 from datetime import datetime
 
 
 router = APIRouter()
 
 
+    
 @router.get("/")
 async def index(session: Session = Depends(db.session),):
     """
@@ -17,7 +18,7 @@ async def index(session: Session = Depends(db.session),):
     :return:
     """
     
-    Users().create(session, auto_commit=True, name= "코알라")
+    # Users().create(session, auto_commit=True, name= "코알라")
     current_time = datetime.utcnow()
     return Response(
         f"Notification API (UTC: {current_time.strftime('%Y.%m.%d %H:%M:%S')})"
