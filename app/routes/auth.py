@@ -10,7 +10,7 @@ from starlette.responses import JSONResponse
 
 from app.common.consts import JWT_SECRET, JWT_ALGORITHM
 from app.database.conn import db
-# from app.database.schema import Users
+from app.database.schema import Users
 from common.models import ImageInfo, DetectionResult
 
 """
@@ -41,37 +41,89 @@ router = APIRouter()
 
 # like this---
 
-# @router.post("/mask_tool/detect/get_result", status_code=200)
-# async def get_detection_result(client_id : str, image : bytes, image_info: ImageInfo):
-#     bounding_box_info, classification_mask_onoff = process(image)
-#     return DetectionResult(bounding_box_info, classification_mask_onoff)
+@router.post("/mask_tool/detect/get_result", status_code=200)
+async def get_detection_result(client_id : str, image : bytes, image_info: ImageInfo):
+    bounding_box_info, classification_mask_onoff = process(image)
+    return DetectionResult(bounding_box_info, classification_mask_onoff)
 
-# @router.post("/input/", status_code=200)
-# async def input(input_type: InputType, reg_info: ...):
-#     if input == InputType.image:
-#         is_exist = await is_image_exist(reg_info.image)
-#         if not reg_info.image:
-#             return JSONResponse(status_code=400, content=dict(msg="Image must be provided'"))
-#         if is_exist:
-#             return JSONResponse(status_code=400, content=dict(msg="Image_EXISTS"))
+@router.post("/input/", status_code=200)
+async def input(input_type: InputType, reg_info: ...):
+    if input == InputType.image:
+        is_exist = await is_image_exist(reg_info.image)
+        if not reg_info.image:
+            return JSONResponse(status_code=400, content=dict(msg="Image must be provided'"))
+        if is_exist:
+            return JSONResponse(status_code=400, content=dict(msg="Image_EXISTS"))
 
-# async def is_image_exist(image: jpg):
-#     get_image = Users.get(image=image) 
-#     if get_image:
-#         return True
-#     return False
-   
+async def is_image_exist(image: jpg):
+    get_image = Users.get(image=image) 
+    if get_image:
+        return True
+    return False
+
+@router.post("/output/", status_code=200)
+async def input(input_type: OutputType, reg_info: ...):
+    if input == OutputType.image:
+        is_exist = await is_image_exist(reg_info.image)
+        if not reg_info.image:
+            return JSONResponse(status_code=400, content=dict(msg="Image must be provided'"))
+        if is_exist:
+            return JSONResponse(status_code=400, content=dict(msg="Image_EXISTS"))
+
+def process(image):
+    return 
+
+"""
+@router.post("/register/{sns_type}", status_code=200, response_model=Token)
+async def register(sns_type: SnsType, reg_info: UserRegister, session: Session = Depends(db.session)):
+
+    # 회원가입 API
+    # :param sns_type:
+    # :param reg_info:
+    # :param session:
+    # :return:
     
+    if sns_type == SnsType.email:
+        is_exist = await is_email_exist(reg_info.email)
+        if not reg_info.email or not reg_info.pw:
+            return JSONResponse(status_code=400, content=dict(msg="Email and PW must be provided'"))
+        if is_exist:
+            return JSONResponse(status_code=400, content=dict(msg="EMAIL_EXISTS"))
+        hash_pw = bcrypt.hashpw(reg_info.pw.encode("utf-8"), bcrypt.gensalt())
+        new_user = Users.create(session, auto_commit=True, pw=hash_pw, email=reg_info.email)
+        token = dict(Authorization=f"Bearer {create_access_token(data=UserToken.from_orm(new_user).dict(xclude={'pw', 'marketing_agree'}),)}")
+        return token
+    return JSONResponse(status_code=400, content=dict(msg="NOT_SUPPORTED"))
 
-# @router.post("/output/", status_code=200)
-# async def input(input_type: OutputType, reg_info: ...):
-#     if input == OutputType.image:
-#         is_exist = await is_image_exist(reg_info.image)
-#         if not reg_info.image:
-#             return JSONResponse(status_code=400, content=dict(msg="Image must be provided'"))
-#         if is_exist:
-#             return JSONResponse(status_code=400, content=dict(msg="Image_EXISTS"))
 
-# def process(image):
-#     return 
+@router.post("/login/{sns_type}", status_code=200)
+async def login(sns_type: SnsType, user_info: models.UserRegister):
+    if sns_type == SnsType.email:
+        is_exist = await is_email_exist(user_info.email)
+        if not user_info.email or not user_info.pw:
+            return JSONResponse(status_code=400, content=dict(msg="Email and PW must be provided'"))
+        if not is_exist:
+            return JSONResponse(status_code=400, content=dict(msg="NO_MATCH_USER"))
+        user = Users.get(email=user_info.email)
+        is_verified = bcrypt.checkpw(user_info.pw.encode("utf-8"), user.pw.encode("utf-8"))
+        if not is_verified:
+            return JSONResponse(status_code=400, content=dict(msg="NO_MATCH_USER"))
+        token = dict(Authorization=f"Bearer {create_access_token(data=UserToken.from_orm(user).dict(exclude={'pw', 'marketing_agree'}),)}")
+        return token
+    return JSONResponse(status_code=400, content=dict(msg="NOT_SUPPORTED"))
 
+
+async def is_email_exist(email: str):
+    get_email = Users.get(email=email)
+    if get_email:
+        return True
+    return False
+
+
+def create_access_token(*, data: dict = None, expires_delta: int = None):
+    to_encode = data.copy()
+    if expires_delta:
+        to_encode.update({"exp": datetime.utcnow() + timedelta(hours=expires_delta)})
+    encoded_jwt = jwt.encode(to_encode, JWT_SECRET, algorithm=JWT_ALGORITHM)
+    return encoded_jwt
+"""
