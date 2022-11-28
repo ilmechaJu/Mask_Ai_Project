@@ -6,7 +6,7 @@ from fastapi import APIRouter, File, UploadFile
 from starlette.responses import Response, FileResponse
 
 from distutils.dir_util import copy_tree
-from original_app.D_mask_Tracking import get_processing
+# from original_app.D_mask_Tracking import get_processing
 
 router = APIRouter()
 
@@ -20,7 +20,7 @@ async def start_detection(image: UploadFile = File(...), image_info: str = ""):
     image_ori_file_path = os.path.join(IMG_DIR, f"{image.filename}")
     with open(image_ori_file_path, "wb") as buffer:
         shutil.copyfileobj(image.file, buffer)
-        response = get_processing(buffer)
+        
 
     # processing -> frame -> ret_image
 
