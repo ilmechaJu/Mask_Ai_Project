@@ -13,7 +13,6 @@ from sqlalchemy.orm import Session
 
 from app.database.conn import Base, db
 
-
 class BaseMixin:
     id = Column(Integer, primary_key=True, index=True)
     created_at = Column(DateTime, nullable=True)
