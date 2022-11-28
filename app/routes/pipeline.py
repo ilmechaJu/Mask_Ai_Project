@@ -6,6 +6,8 @@ from fastapi import APIRouter, File, UploadFile
 from starlette.responses import Response, FileResponse
 
 from distutils.dir_util import copy_tree
+from original_app.D_Module import mask_pipeline
+
 # from original_app.D_mask_Tracking import get_processing
 
 router = APIRouter()
@@ -20,11 +22,9 @@ async def start_detection(image: UploadFile = File(...), image_info: str = ""):
     image_ori_file_path = os.path.join(IMG_DIR, f"{image.filename}")
     with open(image_ori_file_path, "wb") as buffer:
         shutil.copyfileobj(image.file, buffer)
-        
+    image_ret_file_path = mask_pipeline.get_processing()
 
-    # processing -> frame -> ret_image
-
-    return FileResponse(image_ori_file_path)
+    return FileResponse(image_ret_file_path)
 
 
 # # 사진 다운로드 #다운로드는 DB가 필요한듯? (  )
