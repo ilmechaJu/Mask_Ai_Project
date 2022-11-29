@@ -1,6 +1,6 @@
 import cv2
 import mediapipe as mp
-from dynamikontrol import Module
+# from dynamikontrol import Module
 import tensorflow as tf
 import numpy as np
 import time
@@ -22,9 +22,7 @@ class MaskPipeline:
     def get_processing(self, img_ori_path: str):
         start_time = time.time()
         frame = cv2.imread(img_ori_path)
-        if not frame:
-            return
-
+        
         model_frame = cv2.resize(frame, self.input_size, frame)
         # Expand Dimension (224, 224, 3) -> (1, 224, 224, 3) and Normalize the data
         model_frame = np.expand_dims(model_frame, axis=0) / 255.0
