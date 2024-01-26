@@ -1,10 +1,12 @@
 # Mask_Ai_Project
 This is about Mask Recognition Ai. You can see how Ai recognize whether people ware a mask or not.
-All you have to do is looking ./original_app/a_Module.py and D_mask_Tracking.py If you want to know about me. Thank you.
+
+**[If you want to know about me]**
+All you have to do is looking ./original_app/**a_Module.py** and **D_mask_Tracking.py** Thank you.
 
 
 
-[If you want to use, you have to modify somepart]
+**[If you want to use, you have to modify somepart]**
 1) root where traing and validation dataset is
 
 TRAINING_DIR = "C:/Users/I310/PycharmProjects/pythonProject/mask_dataset/train-set"
