@@ -2,14 +2,14 @@
 This is about Mask Recognition AI. You can see how AI recognize whether people ware a mask or not.
 
 ## **💡Tip : a quick way to browse this document**
----
 
 
 You can just watch ./original_app/**a_Module.py** and **D_mask_Tracking.py** in this Repository. Thank you.
 
 
-**[If you want to use, you have to modify somepart]**
----
+## **💡Tip 2 : If you want to use this, you have to modify somepart]**
+
+
 1) root where traing and validation dataset is
 
 TRAINING_DIR = "C:/Users/I310/PycharmProjects/pythonProject/mask_dataset/train-set"
