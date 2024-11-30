@@ -22,8 +22,6 @@ You can just watch ./original_app/**a_Module.py** and **D_mask_Tracking.py** in 
 
    
     *there are no dataset file in this github because of the capacity of the picture they're over 1GB."
-
-   
     So you have to do crolling some 'human Face image' from web and put them into folder which is called "train-set" and "test-set"
 
    
