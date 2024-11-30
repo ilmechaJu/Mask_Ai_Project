@@ -1,7 +1,7 @@
 # Mask_Ai_Project
-This is about Mask Recognition Ai. You can see how Ai recognize whether people ware a mask or not.
+This is about Mask Recognition AI. You can see how AI recognize whether people ware a mask or not.
 
-**[If you want to know about me]**
+**[If you want to know about Me]**
 All you have to do is looking ./original_app/**a_Module.py** and **D_mask_Tracking.py** Thank you.
 
 
@@ -15,7 +15,7 @@ All you have to do is looking ./original_app/**a_Module.py** and **D_mask_Tracki
 TRAINING_DIR = "C:/Users/I310/PycharmProjects/pythonProject/mask_dataset/train-set"
 VALIDATION_DIR = "C:/Users/I310/PycharmProjects/pythonProject/mask_dataset/test-set"
 
-should chnakge "C:/Users/I310/PycharmProjects/pythonProject/mask_dataset/test-set" -> "your own"
+should change Path "C:/Users/I310/PycharmProjects/pythonProject/mask_dataset/test-set" -> "your own"
 
 
 *ther are no dataset file in this github because of the capacity of the picture they're over 1GB."
