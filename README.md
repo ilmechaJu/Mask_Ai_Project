@@ -1,11 +1,11 @@
 # Mask_Ai_Project
 This is about Mask Recognition AI. You can see how AI recognize whether people ware a mask or not.
 
-**[If you want to know about Me]**
+## **💡Tip : a quick way to browse this document**
 ---
 
 
-All you have to do is looking ./original_app/**a_Module.py** and **D_mask_Tracking.py** Thank you.
+You can just watch ./original_app/**a_Module.py** and **D_mask_Tracking.py** in this Repository. Thank you.
 
 
 **[If you want to use, you have to modify somepart]**
