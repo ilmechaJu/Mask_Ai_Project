@@ -1,3 +1,15 @@
+# Use these stacks
+---
+https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white
+https://img.shields.io/badge/Kaggle-20BEFF?style=for-the-badge&logo=Kaggle&logoColor=white
+<p align="center">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=aws,git,opencv,pytorch,tensorflow" />
+  </a>
+</p>
+
+
+
 # Mask_Ai_Project
 This is about Mask Recognition AI. You can see how AI recognize whether people ware a mask or not.
 
